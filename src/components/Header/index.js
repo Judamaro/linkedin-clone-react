@@ -28,11 +28,11 @@ export const Header = () => {
         <HeaderIcons Icon={ChatIcon} Title="Chat" />
         <HeaderIcons Icon={NotificationsIcon} Title="Notifications" />
 
-        <HeaderIcons Title="Me" />
+        <HeaderIcons Profile Title="Me" />
 
         <HeaderIcons Icon={AppsIcon} Title="Apps" />
 
-        <HeaderIcons Title="Prueba Gratis Premium durante 1 mes" />
+        <HeaderIcons Text="Prueba Gratis Premium durante 1 mes" />
       </nav>
     </header>
   );
