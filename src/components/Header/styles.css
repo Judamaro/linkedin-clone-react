@@ -5,6 +5,7 @@
     top: 0;
     border-bottom: 1px solid lightgray;
     z-index: 100;
+    background-color: white;
 }
 
 .nav{
