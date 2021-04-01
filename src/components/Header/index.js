@@ -22,15 +22,15 @@ export const Header = () => {
           <input type="text" placeholder="Search"></input>
         </div>
 
-        <HeaderIcons Icon={HomeIcon} Title="Home" />
-        <HeaderIcons Icon={SupervisorAccountIcon} Title="MyNet" />
-        <HeaderIcons Icon={BusinessCenterIcon} Title="Jobs" />
-        <HeaderIcons Icon={ChatIcon} Title="Chat" />
-        <HeaderIcons Icon={NotificationsIcon} Title="Notifications" />
+        <HeaderIcons Icon={HomeIcon} Title="Inicio" />
+        <HeaderIcons Icon={SupervisorAccountIcon} Title="Mi Red" />
+        <HeaderIcons Icon={BusinessCenterIcon} Title="Empleos" />
+        <HeaderIcons Icon={ChatIcon} Title="Mensajes" />
+        <HeaderIcons Icon={NotificationsIcon} Title="Notificaciones" />
 
-        <HeaderIcons Profile Title="Me" />
+        <HeaderIcons Profile Title="Yo" />
 
-        <HeaderIcons Icon={AppsIcon} Title="Apps" />
+        <HeaderIcons Icon={AppsIcon} Title="Productos" />
 
         <HeaderIcons Text="Prueba Gratis Premium durante 1 mes" />
       </nav>
