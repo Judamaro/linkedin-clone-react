@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import "./styles.css";
 
+import { useDispatch } from "react-redux";
+
 import { Button } from "@material-ui/core";
+
+import { auth } from "../../firebase";
+import { login } from "../../features/useSlice";
 
 export const Login = () => {
   const [register, setRegister] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,6 +21,23 @@ export const Login = () => {
 
   const handleRegister = (e) => {
     e.preventDefault();
+    auth.createUserWithEmailAndPassword(email, password).then((userAuth) => {
+      userAuth.user
+        .updateProfile({
+          displayName: name,
+          photoUrl: "",
+        })
+        .then(() => {
+          dispatch(
+            login({
+              email: userAuth.user.email,
+              uid: userAuth.user.uid,
+              name: userAuth.user.displayName,
+              photoURL: userAuth.user.photoURL,
+            })
+          );
+        });
+    });
   };
 
   return (
