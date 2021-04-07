@@ -11,17 +11,18 @@ function App() {
 
   return (
     <div className="App">
-      <Header></Header>
-
       {user ? (
-        <div className="wrapper">
-          {/*Sidebar Component*/}
-          <Sidebar />
-          {/*Feed Component*/}
-          <Feed />
-          {/*Widgets Component*/}
-          <Widgets />
-        </div>
+        <>
+          <Header />
+          <div className="wrapper">
+            {/*Sidebar Component*/}
+            <Sidebar />
+            {/*Feed Component*/}
+            <Feed />
+            {/*Widgets Component*/}
+            <Widgets />
+          </div>
+        </>
       ) : (
         <Login />
       )}
