@@ -20,7 +20,7 @@ export const Post = ({ name, description, message, photoUrl, images }) => {
       </div>
       <div className="post-body">
         <p>{message}</p>
-        {images ? <img src={images} /> : ""}
+        {images ? <img src={images} alt="Post Images"/> : ""}
       </div>
       <div className="post-buttom">
           <InputIcon Icon={ThumbUpAltOutlinedIcon} Title="Recomendar" Color='gray'/>

@@ -9,9 +9,16 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import AppsIcon from "@material-ui/icons/Apps";
 import SearchIcon from "@material-ui/icons/Search";
 
+import { auth } from "../../firebase";
+
 import "./styles.css";
 
 export const Header = () => {
+
+  const logout = () => {
+    auth.signOut();
+  }
+
   return (
     <header className="header">
       <nav className="nav">
@@ -28,7 +35,7 @@ export const Header = () => {
         <HeaderIcons Icon={ChatIcon} Title="Mensajes" />
         <HeaderIcons Icon={NotificationsIcon} Title="Notificaciones" />
 
-        <HeaderIcons Profile Title="Yo" />
+        <HeaderIcons Profile Title="Yo" Logout={logout}/>
 
         <HeaderIcons Icon={AppsIcon} Title="Productos" />
 

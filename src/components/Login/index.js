@@ -17,6 +17,18 @@ export const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    auth.signInWithEmailAndPassword(email, password).then((userAuth) => {
+      dispatch(
+        login({
+          email: userAuth.user.email,
+          uid: userAuth.user.uid,
+          name: userAuth.user.displayName,
+          photoURL: userAuth.user.photoURL,
+        })
+      );
+    });
+    setEmail('');
+    setPassword('');
   };
 
   const handleRegister = (e) => {
@@ -38,6 +50,9 @@ export const Login = () => {
           );
         });
     });
+    setName('');
+    setEmail('');
+    setPassword('');
   };
 
   return (
