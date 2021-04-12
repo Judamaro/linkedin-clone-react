@@ -1,17 +1,22 @@
 import React from "react";
 import { Avatar } from "@material-ui/core";
+import { selectUser } from "../../features/useSlice";
+import { useDispatch, useSelector } from "react-redux";
+
 import TurnedInIcon from "@material-ui/icons/TurnedIn";
 import AddIcon from "@material-ui/icons/Add";
+
 import "./styles.css";
 
 export const Sidebar = () => {
+  const user = useSelector(selectUser);
 
-    const recentItem = (topic) => (
-        <div className="sidebar_recentItem">
-            <span className="sidebar_hash">#</span>
-            <p>{topic}</p>
-        </div>
-    );
+  const recentItem = (topic) => (
+    <div className="sidebar_recentItem">
+      <span className="sidebar_hash">#</span>
+      <p>{topic}</p>
+    </div>
+  );
 
   return (
     <div className="sidebar_">
@@ -21,10 +26,12 @@ export const Sidebar = () => {
           alt="Profile"
         />
 
-        <Avatar className="sidebar_avatar" />
+        <Avatar src={user.photoURL} className="sidebar_avatar">
+          {user.email[0]}
+        </Avatar>
 
-        <h3>Juan Daniel Mayorga Rodriguez</h3>
-        <h4>judamaro97@gmail.com</h4>
+        <h3>{user.name}</h3>
+        <h4>{user.email}</h4>
         <div className="sidebar_contents">
           <div className="sidebar_cont">
             <p>Contacto</p>
@@ -66,13 +73,13 @@ export const Sidebar = () => {
         <AddIcon className="sidebar_icon_bottom" />
       </div>
       <div className="sidebar_recent">
-          <p>Recientes</p>
-          {recentItem("React.js")}
-          {recentItem("Node.js")}
-          {recentItem("Firebase")}
-          {recentItem("Graphql")}
-          {recentItem("Developer")}
-          {recentItem("Design")}
+        <p>Recientes</p>
+        {recentItem("React.js")}
+        {recentItem("Node.js")}
+        {recentItem("Firebase")}
+        {recentItem("Graphql")}
+        {recentItem("Developer")}
+        {recentItem("Design")}
       </div>
     </div>
   );
