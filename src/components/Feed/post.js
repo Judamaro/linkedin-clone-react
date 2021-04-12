@@ -8,11 +8,11 @@ import ShareOutlinedIcon from '@material-ui/icons/ShareOutlined';
 import ChatOutlinedIcon from '@material-ui/icons/ChatOutlined';
 import SendOutlinedIcon from '@material-ui/icons/SendOutlined';
 
-export const Post = ({ name, description, message, photoUrl, images }) => {
+export const Post = ({ name, description, message, photoURL, images }) => {
   return (
     <div className="post">
       <div className="post-header">
-        <Avatar src={photoUrl} />
+        <Avatar src={photoURL} />
         <div className="post-info">
           <h2>{name}</h2>
           <p>{description}</p>

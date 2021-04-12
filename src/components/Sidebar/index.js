@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Avatar } from "@material-ui/core";
-import { selectUser } from "../../features/useSlice";
+import { selectUser, login } from "../../features/useSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { auth, storage } from "../../firebase";
 
 import TurnedInIcon from "@material-ui/icons/TurnedIn";
 import AddIcon from "@material-ui/icons/Add";
@@ -10,6 +11,8 @@ import "./styles.css";
 
 export const Sidebar = () => {
   const user = useSelector(selectUser);
+  const [imgURL, setimgURL] = useState("");
+  const dispatch = useDispatch();
 
   const recentItem = (topic) => (
     <div className="sidebar_recentItem">
@@ -17,6 +20,46 @@ export const Sidebar = () => {
       <p>{topic}</p>
     </div>
   );
+
+  const updateEmail = (url) => {
+    auth.currentUser
+      .updateProfile({
+        displayName: user.name,
+        photoURL: url,
+      })
+      .then(() => {
+        dispatch(login({
+          email: user.email,
+          uid: user.uid,
+          name: user.name,
+          photoURL: url
+        }))
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  const handlePhoto = (e) => {
+    const file = e.target.files[0];
+    const storeRef = storage.ref(`/avatar/${file.name}`).put(file);
+    storeRef.on(
+      "state_changed",
+      (snapshot) => {},
+      (error) => {
+        console.log(error);
+      },
+      () => {
+        storage
+          .ref("avatar")
+          .child(file.name)
+          .getDownloadURL()
+          .then((url) => {
+            updateEmail(url);
+          });
+      }
+    );
+  };
 
   return (
     <div className="sidebar_">
@@ -29,7 +72,7 @@ export const Sidebar = () => {
         <Avatar src={user.photoURL} className="sidebar_avatar">
           {user.email[0]}
         </Avatar>
-
+        <input type="file" className="files" onChange={handlePhoto} />
         <h3>{user.name}</h3>
         <h4>{user.email}</h4>
         <div className="sidebar_contents">

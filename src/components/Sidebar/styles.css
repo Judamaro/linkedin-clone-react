@@ -183,3 +183,12 @@
     margin-right: 10px;
 }
 
+.files{
+    position: absolute;
+    top: 32px;
+    width: 1px;
+    height: 1px;
+    padding: 1.4rem;
+    cursor: pointer;
+    opacity: 0;
+}
