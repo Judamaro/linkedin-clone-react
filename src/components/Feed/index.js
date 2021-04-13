@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import "./styles.css";
 import { InputIcon } from "./inputIcon";
 import { Post } from "./post";
+import { storage, db } from "../../firebase";
+import firebase from "firebase";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../features/useSlice";
 
 import CreateIcon from "@material-ui/icons/Create";
 import PhotoIcon from "@material-ui/icons/Photo";
@@ -11,10 +15,48 @@ import VerticalSplitIcon from "@material-ui/icons/VerticalSplit";
 
 export const Feed = () => {
   const [input, setInput] = useState("");
+  const [imgPost, setImgPost] = useState("");
+  const [post, setPost] = useState([]);
+  const user = useSelector(selectUser);
 
   const sendPost = (e) => {
     e.preventDefault();
+
+    if (input.length < 1)
+      return alert("Por favor escribe algún comentario al post");
+
+    db.collection("post").add({
+      name: user.name,
+      author: user.email,
+      message: input,
+      photoURL: user.photoURL || "",
+      images: imgPost,
+      timeStamp: firebase.firestore.FielValue.serverTimestamp(),
+    });
+
+    setImgPost("");
     setInput("");
+  };
+
+  const handlePhoto = (e) => {
+    const file = e.target.files[0];
+    const storageRef = storage.ref(`/post/${file.name}`).put(file);
+    storageRef.on(
+      "state_changed",
+      (snapshot) => {},
+      (error) => {
+        console.log(error);
+      },
+      () => {
+        storage
+          .ref("post")
+          .child(file.name)
+          .getDownloadURL()
+          .then((url) => {
+            setImgPost(url);
+          });
+      }
+    );
   };
 
   return (
@@ -37,6 +79,7 @@ export const Feed = () => {
         <div className="feed_input_icons">
           {/*ICONS*/}
           <InputIcon Icon={PhotoIcon} Title="Foto" Color="#70b5f9" />
+          <input type="file" className="file" onChange={handlePhoto} />
           <InputIcon Icon={YouTubeIcon} Title="Video" Color="#7fc15e" />
           <InputIcon Icon={EventIcon} Title="Evento" Color="#e7a33e" />
           <InputIcon
